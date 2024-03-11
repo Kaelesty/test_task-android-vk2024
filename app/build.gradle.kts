@@ -50,6 +50,7 @@ android {
 	}
 }
 
+
 dependencies {
 
 	implementation("androidx.core:core-ktx:1.12.0")
@@ -93,8 +94,4 @@ dependencies {
 	implementation("io.coil-kt:coil-compose:2.5.0")
 
 	implementation("androidx.navigation:navigation-compose:2.7.7")
-
-	val ksoup_version = "0.3.1"
-
-	implementation("com.mohamedrejeb.ksoup:ksoup-html:$ksoup_version")
 }
