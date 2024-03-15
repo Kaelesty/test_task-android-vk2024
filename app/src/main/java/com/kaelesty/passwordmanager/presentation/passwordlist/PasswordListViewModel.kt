@@ -1,10 +1,15 @@
 package com.kaelesty.passwordmanager.presentation.passwordlist
 
 import android.text.Html
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.room.util.newStringBuilder
 import com.kaelesty.passwordmanager.data.remote.ApiService
+import com.kaelesty.passwordmanager.domain.passwords.GetLogoUriUseCase
+import com.kaelesty.passwordmanager.domain.passwords.GetPasswordsUseCase
+import com.kaelesty.passwordmanager.domain.passwords.Password
+import com.kaelesty.passwordmanager.domain.passwords.SavePasswordUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,43 +17,19 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class PasswordListViewModel @Inject constructor(
-	private val apiService: ApiService
+	private val savePasswordUseCase: SavePasswordUseCase,
+	private val getPasswordsUseCase: GetPasswordsUseCase,
+	private val getLogoUriUseCase: GetLogoUriUseCase,
 ): ViewModel() {
 
-	private val _link = MutableStateFlow("")
-	val link: StateFlow<String> get() = _link
+	val passwords: LiveData<List<Password>> = getPasswordsUseCase()
 
-
-	fun load() {
+	fun savePassword(password: String, url: String) {
 		viewModelScope.launch(Dispatchers.IO) {
-			val html = apiService.getHTML("https://www.enterprisedb.com/postgres-tutorials/how-use-postgresql-django").string()
-			_link.emit(
-				getLink(html)
-			)
+			savePasswordUseCase(password, url)
 		}
 	}
 
-	private fun getLink(html: String): String {
-		html.split("\n").forEach { string ->
-			val newString = string.trimStart()
-			if (newString.startsWith("<link")) {
+	fun getLogoUri(id: Long) = getLogoUriUseCase(id)
 
-				val params = string.split(" ")
-				if ("rel=\"icon\"" in params) {
-
-					params.forEach { param ->
-
-						if (param.startsWith("href")) {
-
-							return param.substring(
-								startIndex = 6,
-								endIndex = param.length - 1
-							)
-						}
-					}
-				}
-			}
-		}
-		return "not found"
-	}
 }

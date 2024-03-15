@@ -1,12 +1,11 @@
 package com.kaelesty.passwordmanager.presentation.passwordlist
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.kaelesty.passwordmanager.ModifiedApplication
-import com.kaelesty.passwordmanager.data.remote.ApiService
 import com.kaelesty.passwordmanager.presentation.ViewModelFactory
+import com.kaelesty.passwordmanager.presentation.passwordlist.composables.PasswordListScreen
 import com.kaelesty.passwordmanager.ui.theme.PasswordManagerTheme
 import javax.inject.Inject
 
