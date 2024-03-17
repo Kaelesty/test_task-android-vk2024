@@ -5,6 +5,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.kaelesty.passwordmanager.data.local.PasswordsDatabase
 import com.kaelesty.passwordmanager.di.DaggerApplicationComponent
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 
 class ModifiedApplication : Application() {
 
@@ -18,7 +20,7 @@ class ModifiedApplication : Application() {
 						PasswordsDatabase::class.java,
 						"passwords"
 					)
-					.build()
+					.build(),
 			)
 	}
 }

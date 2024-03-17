@@ -1,4 +1,4 @@
-package com.kaelesty.passwordmanager.ui.theme
+package com.kaelesty.passwordmanager.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

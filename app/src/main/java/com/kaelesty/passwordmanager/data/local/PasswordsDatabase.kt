@@ -4,12 +4,14 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 
 @Database(
-	entities = [PasswordDbModel::class],
+	entities = [PasswordDbModel::class, KeyDbModel::class],
 	version = 1,
 	exportSchema = false,
 )
 abstract class PasswordsDatabase(): RoomDatabase() {
 
-	abstract fun dao(): PasswordsDao
+	abstract fun passwordsDao(): PasswordsDao
+
+	abstract fun keyDao(): KeyDao
 
 }

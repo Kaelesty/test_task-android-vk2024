@@ -33,7 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
-import com.kaelesty.passwordmanager.ui.theme.PasswordManagerTheme
+import com.kaelesty.passwordmanager.presentation.theme.PasswordManagerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

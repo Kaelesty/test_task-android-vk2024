@@ -1,4 +1,4 @@
-package com.kaelesty.passwordmanager.ui.theme
+package com.kaelesty.passwordmanager.presentation.theme
 
 import android.app.Activity
 import android.os.Build

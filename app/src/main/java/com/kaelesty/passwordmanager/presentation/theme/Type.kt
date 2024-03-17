@@ -1,4 +1,4 @@
-package com.kaelesty.passwordmanager.ui.theme
+package com.kaelesty.passwordmanager.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

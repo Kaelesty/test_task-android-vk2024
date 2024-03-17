@@ -10,11 +10,9 @@ import com.kaelesty.passwordmanager.data.local.PasswordDbModel
 import com.kaelesty.passwordmanager.data.local.PasswordsDao
 import com.kaelesty.passwordmanager.data.remote.ApiService
 import com.kaelesty.passwordmanager.data.remote.ApiServiceFactory
+import com.kaelesty.passwordmanager.data.tools.CipherTool
 import com.kaelesty.passwordmanager.domain.passwords.IPasswordRepo
 import com.kaelesty.passwordmanager.domain.passwords.Password
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
 import java.io.File
 import java.io.FileOutputStream
@@ -28,17 +26,13 @@ class PasswordRepo @Inject constructor(
 	private val application: Application,
 ) : IPasswordRepo {
 
-//	init {
-//		CoroutineScope(Dispatchers.IO).launch {
-//			loadLogo(-1, "https://github.githubassets.com/favicons/favicon.svg")
-//		}
-//	}
 
 	override suspend fun savePassword(password: String, websiteUrl: String) {
 		val id = dao.savePassword(
 			PasswordDbModel(
 				id = 0,
-				password = password,
+				password = CipherTool
+					.encrypt(password),
 				url = websiteUrl,
 				null
 			)
@@ -89,7 +83,12 @@ class PasswordRepo @Inject constructor(
 
 		return dao.getPasswords().map { list ->
 			list.map {
-				PasswordMapper.dbModel_ToDomain(it)
+				PasswordMapper.dbModel_ToDomain(
+					it.copy(
+						password = CipherTool
+							.decrypt(it.password)
+					)
+				)
 			}
 		}
 	}

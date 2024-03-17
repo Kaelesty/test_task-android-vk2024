@@ -2,6 +2,7 @@ package com.kaelesty.passwordmanager.di
 
 import android.app.Application
 import com.kaelesty.passwordmanager.data.local.PasswordsDatabase
+import com.kaelesty.passwordmanager.presentation.masterkey.MasterKeyActivity
 import com.kaelesty.passwordmanager.presentation.passwordlist.PasswordListActivity
 import dagger.BindsInstance
 import dagger.Component
@@ -18,12 +19,14 @@ interface ApplicationComponent {
 
 	fun inject(activity: PasswordListActivity)
 
+	fun inject(activity: MasterKeyActivity)
+
 	@Component.Factory
 	interface ApplicationComponentFactory {
 
 		fun create(
 			@BindsInstance application: Application,
-			@BindsInstance db: PasswordsDatabase
+			@BindsInstance db: PasswordsDatabase,
 		): ApplicationComponent
 	}
 }

@@ -27,10 +27,15 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kaelesty.passwordmanager.presentation.ViewModelFactory
 import com.kaelesty.passwordmanager.presentation.passwordlist.PasswordListViewModel
+import kotlinx.coroutines.flow.Flow
 
 @Composable
 fun PasswordListScreen(
-	viewModelFactory: ViewModelFactory
+	viewModelFactory: ViewModelFactory,
+	masterKey: String,
+	onCopy: (String) -> Unit,
+	onBiometricAttempt: () -> Unit,
+	bioAuthSucceedFlow: Flow<Unit>
 ) {
 
 	val viewModel: PasswordListViewModel = viewModel(factory = viewModelFactory)
@@ -58,7 +63,10 @@ fun PasswordListScreen(
 			.fillMaxSize()
 	) {
 		items(passwords.value) { password ->
-			PasswordCard(password = password)
+			PasswordCard(
+				password = password,
+				masterKey, onBiometricAttempt, onCopy, bioAuthSucceedFlow
+			)
 		}
 	}
 
